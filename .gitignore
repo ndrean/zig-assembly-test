@@ -1,0 +1,6 @@
+/mandelzoom/_build/
+/mandelzoom/deps/
+/mandelzoom/test/
+/zoomzig/.zig-cache/
+/zoomzig/zig-out/
+
