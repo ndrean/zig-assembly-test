@@ -20,7 +20,7 @@ jobs:
           echo "<h1>Hello, GitHub Pages</h1>" > pages/index.html
 
       - name: Upload static files as artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: pages/  # Replace with your folder path
 
