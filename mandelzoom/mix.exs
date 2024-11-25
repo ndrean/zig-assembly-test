@@ -9,7 +9,8 @@ defmodule Mandelzoom.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: releases(),
     ]
   end
 
@@ -20,6 +21,15 @@ defmodule Mandelzoom.MixProject do
     [
       mod: {Mandelzoom.Application, []},
       extra_applications: [:logger, :runtime_tools]
+    ]
+  end
+
+  def releases() do
+    [
+      demo: [
+        include_executables_for: [:unix],
+        applications: [runtime_tools: :permanent]
+      ]
     ]
   end
 
@@ -34,11 +44,17 @@ defmodule Mandelzoom.MixProject do
     [
       {:phoenix, "~> 1.7.14"},
       {:phoenix_html, "~> 4.1"},
+      {:telemetry_metrics, "~> 1.0"},
+      {:telemetry_poller, "~> 1.0"},
+      {:gettext, "~> 0.20"},
+      {:jason, "~> 1.2"},
+      {:dns_cluster, "~> 0.1.1"},
+      {:bandit, "~> 1.5"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
       {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
       {:floki, ">= 0.30.0", only: :test},
-      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
       {:heroicons,
        github: "tailwindlabs/heroicons",
@@ -47,12 +63,6 @@ defmodule Mandelzoom.MixProject do
        app: false,
        compile: false,
        depth: 1},
-      {:telemetry_metrics, "~> 1.0"},
-      {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.20"},
-      {:jason, "~> 1.2"},
-      {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
     ]
   end
 

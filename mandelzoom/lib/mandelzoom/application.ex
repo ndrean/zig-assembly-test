@@ -11,9 +11,6 @@ defmodule Mandelzoom.Application do
       MandelzoomWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:mandelzoom, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Mandelzoom.PubSub},
-      # Start a worker by calling: Mandelzoom.Worker.start_link(arg)
-      # {Mandelzoom.Worker, arg},
-      # Start to serve requests, typically the last entry
       MandelzoomWeb.Endpoint
     ]
 

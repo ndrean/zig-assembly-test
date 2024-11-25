@@ -46,9 +46,9 @@ config :mandelzoom, MandelzoomWeb.Endpoint,
 config :mandelzoom, MandelzoomWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg|wasm)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/mandelzoom_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/mandelzoom_web/(controllers|live|components)/.*(ex|heex)$",
     ]
   ]
 
