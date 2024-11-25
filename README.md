@@ -93,3 +93,21 @@ To fill in the canvas, we:
 - instanttiate a Javascript `new Uint8ClampedArray` that will receive the WebAssembly data from the memory  address with a given length.
 - create an `ImageData` from this data
 - draw into the Canvas with `createImageBitmap`
+
+
+## Create a Github pages from a subfolder
+
+- Create a folder, "pages" here.
+- create an "index.html" which calls a (eg) "scriptjs"
+- put your JS in it
+- copy "zoom.wasm" in the same folder
+
+Then: 
+
+```sh
+git subtree push --prefix pages origin gh-pages
+```
+
+et voilà:
+
+<https://ndrean.github.io/zig-assembly-test/>
