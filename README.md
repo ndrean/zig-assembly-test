@@ -1,5 +1,5 @@
 # Zig-assembly-test
-Zig compiled to WebAssembly rendered in Phoenix Liveview
+Zig compiled to WebAssembly rendered in Phoenix Liveview and as a standalone app.
 
 Standalone: 
 
