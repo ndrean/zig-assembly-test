@@ -12,12 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3  # Will use Node.js 20 automatically
 
-      - name: Build static files
-        id: build
-        run: |
-          echo "Building static files..."
-          mkdir -p pages
-          echo "<h1>Hello, GitHub Pages</h1>" > pages/index.html
 
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
