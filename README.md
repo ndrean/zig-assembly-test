@@ -1,7 +1,7 @@
 # Zig-assembly-test
 Zig compiled to WebAssembly rendered in Phoenix Liveview and as a standalone app.
 
-Buildinig the `WebAssembly` code:
+Build the `WebAssembly` code:
 
 ```sh
 cd zoomzig
