@@ -13,7 +13,4 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Deploy
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: pages
+      uses: actions/deploy-pages@v4
