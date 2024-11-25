@@ -3,37 +3,37 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Run on push to the main branch
+      - gh-pages  # Change this if you choose a different branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Will use Node.js 20 automatically
 
-      # If you need to generate static files, add build steps here
       - name: Build static files
         id: build
         run: |
-          # If you already have the files, this step can be skipped
           echo "Building static files..."
-          # Example: mkdir build_outputs_folder
+          mkdir -p pages
+          echo "<h1>Hello, GitHub Pages</h1>" > pages/index.html
 
       - name: Upload static files as artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: pages/ # Path to your static files
+          path: pages/  # Replace with your folder path
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      pages: write      # Allow deployment to GitHub Pages
-      id-token: write   # Required for environment verification
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+
