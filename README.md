@@ -8,13 +8,16 @@ cd zoomzig
 zig build
 ```
 
-Render in Phoenix LiveView
+Render in Phoenix LiveView:
+
 ```sh
 cd mandelbrot
 mix copy && mix phx.server
 ```
 
-Rendered by GitHub pages as a standalone app.
+Rendered by GitHub pages as a standalone app:
+
+<https://ndrean.github.io/zig-assembly-test/>
 
 ## Zig
 

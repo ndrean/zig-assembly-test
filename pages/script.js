@@ -2,7 +2,7 @@
 const WASM_PAGE_SIZE = 65536;
 const INITIAL_PAGES = 40;
 const MAXIMUM_PAGES = 128;
-const IMAX = 300;
+const IMAX = 500;
 
 // Global variables
 let memory, wasm, canvas, ctx, currentBounds;

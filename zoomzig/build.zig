@@ -27,7 +27,7 @@ pub fn build(b: *std.Build) void {
     app.import_memory = true;
     app.export_memory = true;
     // default limit (64mb) crashes wasmtime
-    app.max_memory = std.wasm.page_size * 128; // 64 pages of 64kB = 4MB
+    app.max_memory = std.wasm.page_size * 250; // 64 pages of 64kB = 15MB
 
     b.installArtifact(app);
 

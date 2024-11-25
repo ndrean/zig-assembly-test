@@ -10,7 +10,11 @@
         <h1 style="text-align: center;">Mandelzoom</h1>
         <p style="text-align: center;">Click on the canvas to zoom in.</p>
         <div style="text-align: center;">
-          <canvas id="mandelzoom" phx-hook="MandelbrotViewer" width="800" height="600"></canvas>
+          <canvas style="width:800px; height:600px; image-rendering: high-quality; " 
+            id="mandelzoom" 
+            width="800" 
+            height="600">
+          </canvas>
         </div>
       </div>
   <script src="script.js"></script>
