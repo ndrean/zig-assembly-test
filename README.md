@@ -1,17 +1,20 @@
 # Zig-assembly-test
 Zig compiled to WebAssembly rendered in Phoenix Liveview and as a standalone app.
 
-Standalone: 
+Buildinig the `WebAssembly` code:
 
 ```sh
 cd zoomzig
 zig build
 ```
 
+Render in Phoenix LiveView
 ```sh
 cd mandelbrot
 mix copy && mix phx.server
 ```
+
+Rendered by GitHub pages as a standalone app.
 
 ## Zig
 
