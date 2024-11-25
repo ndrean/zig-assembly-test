@@ -116,11 +116,6 @@ fn mapPixel(pixel: [2]usize, ctx: Bounds) Point {
     return Point{ .x = x, .y = y };
 }
 
-// Webassembly requires the main function to return void
-// pub export fn main() void {
-//     std.debug.print("WebAssembly module started!\n", .{});
-// }
-
 export fn getColoursPointer() *u8 {
     // Expose the colours array to the host
     return &global_colours.?.ptr[0];
