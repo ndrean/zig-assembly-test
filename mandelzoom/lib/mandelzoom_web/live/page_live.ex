@@ -21,7 +21,12 @@ defmodule MandelzoomWeb.PageLive do
     <div>
       <h1>Mandelzoom</h1>
       <div>
-        <canvas id="mandelzoom" phx-hook="MandelbrotViewer" width="800" height="600"></canvas>
+        <canvas
+        style="image-rendering: high-quality;"
+        id="mandelzoom"
+        phx-hook="MandelbrotViewer"
+        width="1000"
+        height="800"></canvas>
       </div>
     </div>
     """
