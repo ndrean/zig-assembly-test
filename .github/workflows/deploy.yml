@@ -3,14 +3,37 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # Deploy when changes are pushed to the main branch
 
 jobs:
-  deploy:
+  # Build job (if you need to generate static files)
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      # Add any build steps here if required
+      # Example: Building with Node.js or another tool
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: pages # Replace with the path to your static files directory
 
-    - name: Deploy
-      uses: actions/deploy-pages@v4
+  # Deploy job
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write      # Allow deployment to GitHub Pages
+      id-token: write   # Allow environment access
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
