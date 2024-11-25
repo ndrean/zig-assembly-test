@@ -11,12 +11,8 @@ jobs:
     # Specify runner +  build & upload the static files as an artifact
     runs-on: ubuntu-latest
     steps:
-      - name: Build static files
-        id: build
-        run: |
-          # <Not provided for brevity>
-          # At a minimum this step should build the static files of your site
-          # <Not provided for brevity>
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Upload static files as artifact
         id: deployment
