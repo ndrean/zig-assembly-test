@@ -1,6 +1,6 @@
 // Constants
 const WASM_PAGE_SIZE = 65536;
-const INITIAL_PAGES = 40;
+const INITIAL_PAGES = 80;
 const MAXIMUM_PAGES = 128;
 const IMAX = 500;
 

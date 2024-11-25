@@ -1,8 +1,8 @@
 // Memory and canvas constants
 const WASM_PAGE_SIZE = 65536; // 64KB
-const INITIAL_PAGES = 150; // 9.4MB initial
-const MAXIMUM_PAGES = 250; // 15.6MB maximum
-const IMAX = 300; // max iterations
+const INITIAL_PAGES = 100; // 100 x 64KB = 6.4MB
+const MAXIMUM_PAGES = 250;
+const IMAX = 400; // max iterations
 
 const MandelbrotViewer = {
   memory: null,
