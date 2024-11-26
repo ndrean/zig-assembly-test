@@ -36,6 +36,15 @@ To compile to `WebAssembly`, we:
 
 ```wasm
 var global_colours: ?[]u8 = null;
+const allocator = std.heap.wasm_allocator;
+
+export fn allocMemory(len: usize) ?[*]u8 {
+    return if (allocator.alloc(u8, len)) |slice|
+        slice.ptr
+    else |_|
+        null;
+}
+
 
 export fn getColoursPointer() *u8 {
     // Expose the colours array to the host
@@ -82,17 +91,33 @@ We overwrite the `resp_headers`:
 The code is call via a hook, `MandelbrotViewer`.
 
 The key points:
-- instantiate a "memory" for WebAssembly
+- instantiate a "memory" for WebAssembly,
+- we let Javascript pass the quantity of memory to allocate to WebAssembly as we provided a function in Zig to allocate memory for the slice (with `std.heap.wasm_alloator`).
 - fetch the wasm file (Phoenix will serve it)
 - we called the WebAssembly module "instance" here". Call the WebAssembly functions with `instance.exports.<function_name>`
 - pass only numbers (integers, floats) to `WebAssembly`. We named our main `Zig` function "initilize" which receives only numbers and return `void`. 
 
 ```js
-memory = new WebAssembly.Memory({initial: initialPages,maximum: MAXIMUM_PAGES,});
+const WASM_PAGE_SIZE = 65536; // 64kB
+const MAXIMUM_PAGES = 150;
+const INITAIL_PAGES = 60;
+
+const cols = this.canvas.width,
+      rows = this.canvas.height,
+      bytesNeeded = cols * rows * 4;
+
+const pagesNeeded = Math.ceil(bytesNeeded / WASM_PAGE_SIZE);
+this.memSize = pagesNeeded;
+const initialPages = Math.max(pagesNeeded, INITIAL_PAGES);
+
+memory = new WebAssembly.Memory({initial: initialPages, maximum: MAXIMUM_PAGES});
 
 const {instance }  = await WebAssembly.instantiateStreaming(fetch("/wasm"), { env: {memory}});
 
-instance.exports.initilize(eows, cols...)
+
+instance.exports.allocMemory(this.memSize);
+
+instance.exports.initilize(eows, cols...);
 ```
 
 To fill in the canvas, we:

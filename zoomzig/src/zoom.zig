@@ -2,11 +2,18 @@
 const std = @import("std");
 
 var global_colours: ?[]u8 = null;
+const allocator = std.heap.wasm_allocator;
 
 const Point = struct { x: f64, y: f64 };
 const point_size = @sizeOf(Point);
 const Bounds = struct { topLeft: Point, bottomRight: Point, cols: usize, rows: usize };
 
+export fn allocMemory(len: usize) ?[*]u8 {
+    return if (allocator.alloc(u8, len)) |slice|
+        slice.ptr
+    else |_|
+        null;
+}
 /// Set the parameters for the computation
 export fn initialize(
     rows: usize,
@@ -17,8 +24,6 @@ export fn initialize(
     bottomright_x: f64,
     bottomright_y: f64,
 ) void {
-    const allocator = std.heap.page_allocator;
-
     const total_pixels = rows * cols;
     const bytes_needed = total_pixels * 4;
 
@@ -125,10 +130,10 @@ export fn getColoursSize() usize {
     return global_colours.?.len;
 }
 
-export fn freeColours() void {
-    if (global_colours) |slice| {
-        const allocator = std.heap.page_allocator;
-        allocator.free(slice);
-        global_colours = null;
-    }
+export fn freeColours(ptr: [*]u8, len: usize) void {
+    allocator.free(ptr[0..len]);
+    // if (global_colours) |slice| {
+    //     allocator.free(slice);
+    //     global_colours = null;
+    // }
 }

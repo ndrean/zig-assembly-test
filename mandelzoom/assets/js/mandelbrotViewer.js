@@ -2,13 +2,15 @@
 const WASM_PAGE_SIZE = 65536; // 64KB
 const INITIAL_PAGES = 60; // 100 x 64KB = 6.4MB
 const MAXIMUM_PAGES = 150;
-const IMAX = 400; // max iterations
+const IMAX = 300; // max iterations
 
 const MandelbrotViewer = {
   memory: null,
   wasm: null,
   canvas: null,
   ctx: null,
+  memSize: null,
+  memPtr: null,
   currentBounds: {
     min_x: -2,
     max_y: 1,
@@ -22,6 +24,7 @@ const MandelbrotViewer = {
 
     // Calculate required pages (round up)
     const pagesNeeded = Math.ceil(bytesNeeded / WASM_PAGE_SIZE);
+    this.memSize = pagesNeeded;
 
     // Ensure we have enough initial pages
     const initialPages = Math.max(pagesNeeded, INITIAL_PAGES);
@@ -78,6 +81,8 @@ const MandelbrotViewer = {
       });
 
       this.wasm = result.instance;
+      this.memPtr = this.wasm.exports.alloc(this.memSize);
+      console.log(this.memPtr);
       console.log("WASM module loaded successfully");
     } catch (error) {
       console.error("Failed to initialize WASM:", error);
@@ -215,7 +220,7 @@ const MandelbrotViewer = {
     });
   },
   destroyed() {
-    if (this.wasm) this.wasm.exports.freeColours();
+    if (this.wasm) this.wasm.exports.freeColours(this.memPtr, this.memSize);
   },
 };
 
