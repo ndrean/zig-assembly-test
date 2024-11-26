@@ -101,6 +101,14 @@ To fill in the canvas, we:
 - draw into the Canvas with `createImageBitmap`
 
 
+## Related
+
+The `Elixir` library [Orb](https://useorb.dev/) can produce a WAT (text).
+
+To compile to WASM binary, use [WABT](https://github.com/WebAssembly/wabt).
+
+[Wasmex](https://github.com/tessi/wasmex) can run Wasi in Elixir.
+
 ## Create a Github pages from a subfolder
 
 - Create a folder, "pages" here.
