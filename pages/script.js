@@ -5,8 +5,7 @@ const WASM_PAGE_SIZE = 65536,
   IMAX = 500;
 
   // Global variables
-const wasm = undefined;
-let memory, canvas, ctx, currentBounds, memSize, memPtr;
+let wasm, memory, canvas, ctx, currentBounds, memSize, memPtr;
 
 function setupMemory() {
   const bytesNeeded = canvas.width * canvas.height * 4;
