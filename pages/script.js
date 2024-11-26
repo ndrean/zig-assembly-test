@@ -4,8 +4,9 @@ const WASM_PAGE_SIZE = 65536,
   MAXIMUM_PAGES = 128,
   IMAX = 500;
 
-// Global variables
-let memory, wasm, canvas, ctx, currentBounds, memSize, memPtr;
+  // Global variables
+const wasm = undefined;
+let memory, canvas, ctx, currentBounds, memSize, memPtr;
 
 function setupMemory() {
   const bytesNeeded = canvas.width * canvas.height * 4;
@@ -23,18 +24,25 @@ function setupMemory() {
 }
 
 async function initWasm() {
-  const result = await WebAssembly.instantiateStreaming(fetch("zoom.wasm"), {
-    env: { memory },
-  });
-  wasm = result.instance;
-  wasm.exports.allocMemory(memSize);
+  const { instance } = await WebAssembly.instantiateStreaming(
+    fetch("zoom.wasm"),
+    {
+      env: { memory },
+    }
+  );
+  instance.exports.allocMemory(memSize);
+  return instance;
 }
 
 function renderCurrentImage() {
   const coloursPtr = wasm.exports.getColoursPointer();
   const coloursSize = wasm.exports.getColoursSize();
   const imageData = new ImageData(
-    new Uint8ClampedArray(wasm.exports.memory.buffer, coloursPtr, coloursSize),
+    new Uint8ClampedArray(
+      wasm.exports.memory.buffer,
+      coloursPtr,
+      coloursSize
+    ),
     canvas.width,
     canvas.height
   );
@@ -92,7 +100,7 @@ async function init() {
   currentBounds = { min_x: -2.0, max_y: 1.0, max_x: 0.6, min_y: -1.0 };
 
   setupMemory();
-  await initWasm();
+  wasm = await initWasm();
 
   wasm.exports.initialize(
     canvas.height,

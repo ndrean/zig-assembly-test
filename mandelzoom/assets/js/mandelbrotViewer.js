@@ -74,16 +74,19 @@ const MandelbrotViewer = {
   },
   async initWasm() {
     try {
-      const result = await WebAssembly.instantiateStreaming(fetch("/wasm"), {
-        env: {
-          memory: this.memory,
-        },
-      });
+      const { instance } = await WebAssembly.instantiateStreaming(
+        fetch("/wasm"),
+        {
+          env: {
+            memory: this.memory,
+          },
+        }
+      );
 
-      this.wasm = result.instance;
-      this.memPtr = this.wasm.exports.alloc(this.memSize);
-      console.log(this.memPtr);
+      this.wasm = instance;
+      this.memPtr = this.wasm.exports.allocMemory(this.memSize);
       console.log("WASM module loaded successfully");
+      
     } catch (error) {
       console.error("Failed to initialize WASM:", error);
       throw error;

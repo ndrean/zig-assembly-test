@@ -58,6 +58,8 @@ export fn getColoursSize() usize {
 
 ## Elixir
 
+Run a Mix task to copy the "zoom.wasm" file into the assets folder.
+
 The call `WebAssembly.instantiateStreaming` asks for a content-type "application/wasm".
 
 ### Serve the "wasm" file to the client
@@ -136,10 +138,18 @@ To compile to WASM binary, use [WABT](https://github.com/WebAssembly/wabt).
 
 ## Create a Github pages from a subfolder
 
-- Create a folder, "pages" here.
-- create an "index.html" which calls a (eg) "scriptjs"
-- put your JS in it
-- copy "zoom.wasm" in the same folder
+
+ 
++ Create a folder, "pages" here.
++ create an "index.html" which calls a (eg) "scriptjs"
++ put your JS in it
++ copy "zoom.wasm" in the same folder or keep it sync with:
+
+
+```sh
+# /pages
+ln -s ../zoomzig/zig-out/bin/zoom.wasm
+```
 
 Then: 
 
