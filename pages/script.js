@@ -1,11 +1,11 @@
 // Constants
-const WASM_PAGE_SIZE = 65536;
-const INITIAL_PAGES = 80;
-const MAXIMUM_PAGES = 128;
-const IMAX = 500;
+const WASM_PAGE_SIZE = 65536,
+  INITIAL_PAGES = 80,
+  MAXIMUM_PAGES = 128,
+  IMAX = 500;
 
 // Global variables
-let memory, wasm, canvas, ctx, currentBounds;
+let memory, wasm, canvas, ctx, currentBounds, memSize, memPtr;
 
 function setupMemory() {
   const bytesNeeded = canvas.width * canvas.height * 4;
@@ -27,6 +27,7 @@ async function initWasm() {
     env: { memory },
   });
   wasm = result.instance;
+  wasm.exports.allocMemory(memSize);
 }
 
 function renderCurrentImage() {
