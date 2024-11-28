@@ -1,7 +1,7 @@
 # Zig-assembly-test
 Zig code compiled to WebAssembly and rendered in Phoenix Liveview and as a standalone app.
 
-The Zig code will compute some RGBA values for each point of a quantitized area of the 2D-plan. We have a canvas whose pixels  `(i,j)` are in correspondance with a point `(x,y)`.
+The Zig code will compute some RGBA values for each point of a quantitized area of the 2D-plan. We have a canvas whose pixels  `(i,j)` are in correspondance with a point `(x,y)` of the 2D-plane.
 
 - Build the `WebAssembly` code:
 
